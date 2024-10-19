@@ -105,28 +105,6 @@ window.addEventListener('load', () => {
     animateTimeline();
 });
 
-// Contact form handling
-const contactForm = document.getElementById('contact-form');
-const formStatus = document.getElementById('form-status');
-
-if (contactForm && formStatus) {
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const email = document.getElementById('email').value;
-        const message = document.getElementById('message').value;
-
-        // Simple validation
-        if (email && message) {
-            formStatus.textContent = "Thanks for your message! I'll get back to you soon.";
-            formStatus.style.color = "green";
-            contactForm.reset();
-        } else {
-            formStatus.textContent = "Please fill out all fields.";
-            formStatus.style.color = "red";
-        }
-    });
-}
-
 // Initialize particle.js
 if (document.getElementById('particles-js')) {
     particlesJS('particles-js', {
@@ -203,3 +181,30 @@ if (typeof VanillaTilt !== 'undefined') {
         "max-glare": 0.2,
     });
 }
+
+// Mobile menu toggle
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
+
+if (hamburger && navLinks) {
+    hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        hamburger.classList.toggle('active');
+    });
+
+    // Close menu when a link is clicked
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            hamburger.classList.remove('active');
+        });
+    });
+}
+
+// Optional: Close menu when clicking outside
+document.addEventListener('click', (event) => {
+    if (!event.target.closest('#navbar')) {
+        navLinks.classList.remove('active');
+        hamburger.classList.remove('active');
+    }
+});
